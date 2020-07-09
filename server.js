@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const db = require("./app/models");
+const Role = db.role;
 const cors = require("cors");
 
 const app = express();
@@ -18,8 +20,24 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require("./app/models");
 db.sequelize.sync();
+
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
+  });
+
+  Role.create({
+    id: 2,
+    name: "moderator"
+  });
+
+  Role.create({
+    id: 3,
+    name: "admin"
+  });
+}
 
 // simple route
 app.get("/", (req, res) => {
@@ -30,6 +48,8 @@ require("./app/routes/category.routes.js")(app);
 require("./app/routes/article.routes.js")(app);
 require("./app/routes/comment.routes.js")(app);
 require("./app/routes/upload.routes.js")(app);
+require("./app/routes/auth.routes.js")(app);
+require("./app/routes/user.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
