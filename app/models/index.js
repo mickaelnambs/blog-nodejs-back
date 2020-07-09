@@ -21,11 +21,17 @@ db.sequelize = sequelize;
 
 db.articles = require('./article.model.js')(sequelize, Sequelize);
 db.categories = require('./category.model.js')(sequelize, Sequelize);
+db.comments = require('./comment.model.js')(sequelize, Sequelize);
+db.images = require('./image.model.js')(sequelize, Sequelize);
 
 db.categories.hasMany(db.articles, { as: "articles"});
-db.articles.belongsTo(db.categories, {
-    foreignKey: "categoryId",
-    as: "category",
-});
+db.articles.belongsTo(db.categories, { foreignKey: "categoryId", as: "category" });
+
+db.articles.hasMany(db.comments, { as: "comments" });
+db.comments.belongsTo(db.articles, { foreignKey: "articleId", as: "article" });
+
+db.articles.hasMany(db.images, { as: "images" });
+db.images.belongsTo(db.articles, { foreignKey: "articleId", as: "article" });
+
 
 module.exports = db;

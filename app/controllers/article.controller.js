@@ -53,7 +53,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Article.findByPk(id, { include: ["category"] })
+    Article.findByPk(id, { include: ["category", "comments"] })
         .then(data => {
             res.send(data)
         })
