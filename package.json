@@ -94,7 +94,7 @@
     "destroy": "^1.0.4",
     "detect-libc": "^1.0.3",
     "dicer": "^0.2.5",
-    "dot-prop": "^4.2.0",
+    "dot-prop": "^5.1.1",
     "dottie": "^2.0.2",
     "duplexer3": "^0.1.4",
     "ecdsa-sig-formatter": "^1.0.11",
